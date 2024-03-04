@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
+import { ServicioAutorizacionService } from './servicio-autorizacion.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -10,5 +12,23 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'hakaton';
+  conectado = false;
+
+  constructor(private servicioAutorizacion: ServicioAutorizacionService, private router: Router) {
+
+    this.conectado = this.servicioAutorizacion.comprobarToken();
+
+    if (this.conectado === false) {
+      console.log('this.conectado ->', this.conectado)
+      this.router.navigate(['/autenticacion'])
+    }else{
+      console.log('this.conectado ->', this.conectado);
+      this.router.navigate(['/home']);
+    }
+  }
+
+  cerrarSesion() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/']);
+  }
 }
