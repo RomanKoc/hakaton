@@ -1,19 +1,23 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
-    <ul class="navbar-nav">
-        <li class="nav-item">
-            <a class="nav-link" href="home">Home</a>
-        </li>
-        <li class="nav-item">
-            @if(conectado){
-                <a class="nav-link disabled" href="autenticacion" aria-disabled="true">Autentificacion</a>
-            }@else {
-                <a class="nav-link" href="autenticacion">Autentificacion</a>
-            }
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="autenticacion"  (click)="cerrarSesion()">Cerrar sesion</a>
-        </li>
-    </ul>
+  <ul class="navbar-nav ">
+    <li class="nav-item">
+      <a class="nav-link" href="home">Home</a>
+    </li>
+    <li class="nav-item ml-auto">
+      @if(conectado === false){
+      <a class="nav-link disabled" disabled="disabled" disabled>Cerrar sesion</a>
+      }@else {
+      <a class="nav-link" href="autenticacion" (click)="cerrarSesion()">Cerrar sesion</a>
+      }
+    </li>
+  </ul>
 </nav>
-
-<router-outlet></router-outlet>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col">
+      <div class="d-flex">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>

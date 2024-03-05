@@ -1,24 +1,25 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ServicioUsuariosService } from '../servicio-usuarios.service';
-import { ServicioAutorizacionService } from '../servicio-autorizacion.service';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, Validators, FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ApiService } from '../api.service';
+import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-autenticacion',
+  selector: 'app-login',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
-  templateUrl: './autenticacion.component.html',
-  styleUrl: './autenticacion.component.css'
+  templateUrl: './login.component.html',
+  styleUrl: './login.component.css'
 })
-export class AutenticacionComponent {
-  usuario: any;
+export class LoginComponent {
+
+  tokenKey: string = 'token';
+  usuario!: { email: string, password: string };
   token: string = '';
   error: string = '';
 
-  constructor(private servicioUsuarios: ServicioUsuariosService,
-    private servicioAutorizacion: ServicioAutorizacionService,
+  constructor(private servicioUsuarios: ApiService,
     private router: Router) { }
 
   formularioAutentificar = new FormGroup({
@@ -40,7 +41,8 @@ export class AutenticacionComponent {
             this.token = response['token'];
             console.log('Token:', this.token);
             this.error = '';
-            this.servicioAutorizacion.guardarToken(this.token);
+            this.guardarToken(this.token);
+            this.simpleAlert();
             this.router.navigate(['/home']);
           },
           error: (error) => {
@@ -50,6 +52,14 @@ export class AutenticacionComponent {
         });
       this.formularioAutentificar.reset();
     }
+  }
+  guardarToken(token: string) {
+    console.log('guardado')
+    localStorage.setItem(this.tokenKey, token);
+  }
+
+  simpleAlert() {
+    Swal.fire('Autentificación', 'Usuario autentificado', 'success');
   }
 
 

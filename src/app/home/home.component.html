@@ -1,24 +1,24 @@
-<div class="container">
-
+<div class="container mt-2">
     <h2>Lista de usuarios</h2>
-    <p>Resultado de pedir lso usuarios a reqres</p>
-    <button type="button" class="btn btn-primary" style="margin: 10px; margin-left: -15px;">Añadir usuario</button>
-
-
-    <div class="row ">
-        @if (usuarios.data){
+    <p class="text-info">Resultado de pedir lso usuarios a reqres</p>
+    <button type="button" class="btn btn-primary mx-3" style="margin: 10px; margin-left: -15px;" data-bs-toggle="modal"
+        data-bs-target="#exampleModal">
+        Añadir usuario
+    </button>
+    <div class="row">
+        @if (usuarios && usuarios.data){
         @for(usuario of usuarios.data; track $index) {
-        <div class="card m-1 " style="width: 240px;">
-            <div class="card-title m-3">
-                <h5>{{usuario.first_name}} {{usuario.last_name}}</h5>
-                <p>{{usuario.email}}</p>
+        <div class="card mx-1 mt-1" style="width: 12.5em;">
+            <img src="{{usuario.avatar}}" class="img-fluid" alt="img-{{$index}}" style="width: 200px; height: 170px;">
+            <div class="card-body">
+                <h5 class="card-title" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                    {{usuario.first_name}} {{usuario.last_name}}</h5>
+                <p class="card-text" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                    {{usuario.email}}</p>
+                <div>
+                </div>
+                <button type="button" class="btn btn-primary mt-3" (click)="masInfo(usuario.id)">Mas informacion</button>
             </div>
-            <div class="card-body p-0">
-                <img src="{{usuario.avatar}}" class="img-fluid w-100">
-            </div>
-            <button class="btn btn-primary m-3" (click)="modal.openModal()">Editar</button>
-            <app-modal #modal></app-modal>
-            <p>Mas info</p>
         </div>
         }
         }
@@ -38,5 +38,32 @@
                 style="margin: 10px;">Siguiente</button>
             }
     </div>
+</div>
+<!-- Button trigger modal -->
 
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Añadir usuario</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="agreagarForm">
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Nombre*</label>
+                        <input type="mail" class="form-control" formControlName="name" aria-describedby="Nombre de usuario">
+                        <label for="exampleInputEmail1" class="form-label">Trabajo*</label>
+                        <input type="text" class="form-control" formControlName="job" aria-describedby="Trabajo">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"  (click)="agregarUsuario()">Añadir</button>
+            </div>
+        </div>
+    </div>
 </div>

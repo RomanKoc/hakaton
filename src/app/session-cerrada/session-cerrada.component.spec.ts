@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AutenticacionComponent } from './autenticacion.component';
+import { SessionCerradaComponent } from './session-cerrada.component';
 
-describe('AutenticacionComponent', () => {
-  let component: AutenticacionComponent;
-  let fixture: ComponentFixture<AutenticacionComponent>;
+describe('SessionCerradaComponent', () => {
+  let component: SessionCerradaComponent;
+  let fixture: ComponentFixture<SessionCerradaComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AutenticacionComponent]
+      imports: [SessionCerradaComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(AutenticacionComponent);
+    fixture = TestBed.createComponent(SessionCerradaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

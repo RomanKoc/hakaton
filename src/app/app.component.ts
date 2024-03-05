@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { ServicioAutorizacionService } from './servicio-autorizacion.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-root',
@@ -12,23 +12,36 @@ import { Router } from '@angular/router';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  conectado = false;
 
-  constructor(private servicioAutorizacion: ServicioAutorizacionService, private router: Router) {
+  conectado: boolean;
 
-    this.conectado = this.servicioAutorizacion.comprobarToken();
+  constructor(private router: Router) {
+
+    this.conectado = this.comprobarToken();
 
     if (this.conectado === false) {
-      console.log('this.conectado ->', this.conectado)
+      console.log('this.conectado ->', this.conectado);
       this.router.navigate(['/autenticacion'])
-    }else{
+    } else {
       console.log('this.conectado ->', this.conectado);
       this.router.navigate(['/home']);
     }
   }
 
-  cerrarSesion() {
-    localStorage.removeItem('token');
-    this.router.navigate(['/']);
+  comprobarToken(): boolean {
+    return localStorage.getItem('token') !== null;
   }
+
+  cerrarSesion() {
+    alert('sesion cerrada');
+    // No termina de funcionar..
+    /* setTimeout(() => {
+      this.router.navigate(['sesion-cerrada']);
+    }, 2200); */
+    localStorage.removeItem('token');
+  }
+  simpleAlert() {
+    Swal.fire('Salir', 'Sesion cerrada correctamente', 'success')
+  }
+
 }

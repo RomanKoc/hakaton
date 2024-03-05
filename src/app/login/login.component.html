@@ -1,25 +1,27 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-12">
             <form [formGroup]="formularioAutentificar" (ngSubmit)="submit()">
                 <div class="form-group mt-2">
                     <label for="exampleInputEmail1">Email de acceso*</label>
                     <input type="email" class="form-control" aria-describedby="emailHelp" formControlName="email">
                     @if(this.formularioAutentificar.get('email')?.errors?.['required']) {
-                    <span>Se requiere email</span>
+                    <span class="text-danger">Se requiere email</span>
                     }
                 </div>
                 <div class="form-group mt-2">
                     <label for="exampleInputPassword1">Contraseña*</label>
                     <input type="password" class="form-control" formControlName="password">
                     @if(this.formularioAutentificar.get('password')?.errors?.['required']) {
-                    <span>Se requiere contraseña</span>
+                    <span class="text-danger">Se requiere contraseña</span>
                     }
                 </div>
-                <button type="submit" class="btn btn-primary mt-2" [disabled]="formularioAutentificar.invalid">Entrar</button>
                 @if (error != '') {
-                <span>Usuario no encontrado</span>
+                <span class="bg-warning">Usuario no encontrado</span>
+                <br>
                 }
+                <button type="submit" class="btn btn-primary mt-2"
+                    [disabled]="formularioAutentificar.invalid">Entrar</button>
             </form>
         </div>
     </div>

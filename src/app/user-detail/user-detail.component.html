@@ -1,1 +1,13 @@
-<p>user-detail works!</p>
+@if (usuario) {
+<div class="component mx-5 mt-4">
+    <div class="row">
+        <div class="col-12" >
+            <img src="{{usuario.avatar}}">
+        </div>
+        <div class="col-12">
+            <h2>{{usuario.first_name}} - {{usuario.last_name}}</h2>
+            <button class="btn btn-secondary">{{usuario.email}}</button>
+        </div>
+    </div>
+</div>
+}
