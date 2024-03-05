@@ -39,7 +39,7 @@ export class LoginComponent {
         .subscribe({
           next: (response: any) => {
             this.token = response['token'];
-            console.log('Token:', this.token);
+            /* console.log('Token:', this.token); */
             this.error = '';
             this.guardarToken(this.token);
             this.simpleAlert();
@@ -54,7 +54,6 @@ export class LoginComponent {
     }
   }
   guardarToken(token: string) {
-    console.log('guardado')
     localStorage.setItem(this.tokenKey, token);
   }
 

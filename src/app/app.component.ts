@@ -20,10 +20,8 @@ export class AppComponent {
     this.conectado = this.comprobarToken();
 
     if (this.conectado === false) {
-      console.log('this.conectado ->', this.conectado);
       this.router.navigate(['/autenticacion'])
     } else {
-      console.log('this.conectado ->', this.conectado);
       this.router.navigate(['/home']);
     }
   }
